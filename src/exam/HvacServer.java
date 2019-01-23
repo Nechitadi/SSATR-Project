@@ -47,13 +47,18 @@ class SensorHandler extends Thread{
     }
     
     public void displayData(String line) {
+        System.out.println("\n===Afisez date===\n" + line);
+        
         if (line.contains("Temperatura: ")) {
-            System.out.println("\n===Afisez date===\n" + line);
-
             String typedValue = line.replace("Temperatura: ", "");
             Integer temperatureFromSensor = Integer.parseInt(typedValue);
             hvac.setReadTemperature(temperatureFromSensor);
             hvac.switchHeatingAndCooling(temperatureFromSensor);
+        } else if (line.contains("Seteaza temperatura: ")) {
+            String typedValue = line.replace("Seteaza temperatura: ", "");
+            Integer roomSetTemperature = Integer.parseInt(typedValue);
+            hvac.setRoomSetTemperature(roomSetTemperature);
+            System.out.println("Temperatura a fost setata la: " + hvac.getRoomSetTemperature());
         }
     }
     

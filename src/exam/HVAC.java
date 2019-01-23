@@ -14,6 +14,7 @@ public class HVAC {
     String CELSIUS_SYMBOL = Character.toString((char) '\u00B0');
     private int readTemperature;    
     private int readHumidity;
+    private List<Integer> temperatureHistory = new ArrayList();
 
     public int getRoomSetTemperature() {
         return roomSetTemperature;
@@ -22,8 +23,7 @@ public class HVAC {
     public void setRoomSetTemperature(int roomSetTemperature) {
         this.roomSetTemperature = roomSetTemperature;
     }
-    private List<Integer> temperatureHistory = new ArrayList();
-    
+       
     public void switchHeatingAndCooling(int currentValue) {
         if (currentValue < roomSetTemperature) {
             heat(currentValue);
