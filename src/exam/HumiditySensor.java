@@ -1,15 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package exam;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.Scanner;
 
 /**
  *
  * @author Admin
  */
 public class HumiditySensor extends Sensor {
-   
+
+    @Override
+    public String readValue() {
+        return super.readValue();
+    }
     
+    public static void main(String[] args) throws IOException, InterruptedException {
+        
+        TemperatureSensor sensor = new TemperatureSensor();
+        
+        System.out.println("Senzorul de umiditate se conecteaza la server...");
+        Socket s = new Socket("localhost",1888);
+        System.out.println("Conexiune cu succes!");
+ 
+        PrintWriter k = new PrintWriter(new OutputStreamWriter(s.getOutputStream()),true);
+        BufferedReader y = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        
+        while(true){
+            System.out.println("\nIntroduceti valoarea umiditatii:");
+            k.println(sensor.readValue());
+            
+            String responseFromServer;
+            while((responseFromServer = y.readLine()) != null) {
+                if (responseFromServer.equals("DONE")) {
+                    break;
+                }
+                Thread.sleep(1000);
+                System.out.println(responseFromServer);
+            }
+        }
+    }
 }
