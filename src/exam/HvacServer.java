@@ -66,6 +66,21 @@ class SensorHandler extends Thread{
             responseFromHVAC += "\nDONE";
 
             return responseFromHVAC;
+        } else if (line.contains("H: ")) {
+            String typedValue = line.replace("H: ", "");
+            Integer humidityFromSensor = Integer.parseInt(typedValue);
+            hvac.setReadHumidity(humidityFromSensor);
+            responseFromHVAC = hvac.switchHumidifierDevice(humidityFromSensor);
+            return responseFromHVAC;
+        } else if (line.contains("SetH ")) {
+            String typedValue = line.replace("SetH ", "");
+            Integer roomSetHumidity = Integer.parseInt(typedValue);
+            hvac.setRoomSetHumidity(roomSetHumidity);
+            responseFromHVAC = "Humidatea dorita a fost setata la: ";
+            responseFromHVAC += hvac.getRoomSetHumidity() + "%";
+            responseFromHVAC += "\nDONE";
+
+            return responseFromHVAC;
         } else if (line.contains("Inchide")) {
             System.out.println("Conexiunea senzorului a fost intrerupta!");
             s.close();

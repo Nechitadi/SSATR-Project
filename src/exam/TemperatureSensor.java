@@ -27,7 +27,7 @@ public class TemperatureSensor extends Sensor {
         
         TemperatureSensor sensor = new TemperatureSensor();
         
-        System.out.println("Senzorul se conecteaza la server...");
+        System.out.println("Senzorul de temperatura se conecteaza la server...");
         Socket s = new Socket("localhost",1888);
         System.out.println("Senzorul s-a conectat la server!");
  
