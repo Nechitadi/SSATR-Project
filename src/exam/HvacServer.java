@@ -25,6 +25,7 @@ public class HvacServer {
 class SensorHandler extends Thread{
     Socket s;
     HVAC hvac = new HVAC();
+    boolean active = true;
  
     public SensorHandler(Socket s) {
         this.s = s;
@@ -35,10 +36,10 @@ class SensorHandler extends Thread{
             PrintWriter out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
             
-            while (true) {
+            while (active) {
                 String line = in.readLine(); //asteapta mesaje de la client
                 System.out.println("\nAm citit valoare de la senzor: \n" + line);
-                displayData(line);       
+                performActions(line);       
             }
  
         }catch(Exception e){
@@ -46,8 +47,8 @@ class SensorHandler extends Thread{
         }
     }
     
-    public void displayData(String line) {
-        System.out.println("\n===Afisez date===\n");
+    public void performActions(String line) throws IOException {
+        System.out.println("\n===Afisez date==");
         
         if (line.contains("T: ")) {
             String typedValue = line.replace("T: ", "");
@@ -63,6 +64,9 @@ class SensorHandler extends Thread{
                 hvac.getRoomSetTemperature() +
                 hvac.CELSIUS_SYMBOL + "C"
             );
+        } else if (line.contains("Turn off system")) {
+            s.close();
+            active = false;
         }
     }
     

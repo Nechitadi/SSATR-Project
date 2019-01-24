@@ -33,7 +33,7 @@ public class HVAC {
     }
     
     private void heat(Integer currentValue) {
-        System.out.println("===A pornit incalzirea camerei===");
+        System.out.println("===A pornit incalzirea===");
         while(currentValue < roomSetTemperature) {
             currentValue++;         
             System.out.println("Temperatura a crescut la " + currentValue + CELSIUS_SYMBOL + "C");
