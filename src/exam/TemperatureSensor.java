@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class TemperatureSensor extends Sensor {
 
     @Override
-    public int readValue() {
+    public String readValue() {
         return super.readValue();
     }
     
@@ -23,23 +23,29 @@ public class TemperatureSensor extends Sensor {
         return celsiusValue * 5;
     }
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         
         TemperatureSensor sensor = new TemperatureSensor();
         
         System.out.println("Senzorul se conecteaza la server...");
         Socket s = new Socket("localhost",1888);
- 
         System.out.println("Senzorul s-a conectat la server!");
  
         PrintWriter k = new PrintWriter(new OutputStreamWriter(s.getOutputStream()),true);
         BufferedReader y = new BufferedReader(new InputStreamReader(s.getInputStream()));
- 
+        
         while(true){
-            System.out.println("Introduceti valoarea temperaturii:");
-            String input = "Temperatura: " + String.valueOf(sensor.readValue());
-            k.println(input);
+            System.out.println("\nIntroduceti valoarea temperaturii:");
+            k.println(sensor.readValue());
+            
+            String responseFromServer;
+            while((responseFromServer = y.readLine()) != null) {
+                if (responseFromServer.equals("DONE")) {
+                    break;
+                }
+                Thread.sleep(1000);
+                System.out.println(responseFromServer);
+            }
         }
     }
-    
 }
