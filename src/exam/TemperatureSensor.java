@@ -23,7 +23,7 @@ public class TemperatureSensor extends Sensor {
         return celsiusValue * 5;
     }
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         
         TemperatureSensor sensor = new TemperatureSensor();
         
@@ -43,6 +43,7 @@ public class TemperatureSensor extends Sensor {
                 if (responseFromServer.equals("DONE")) {
                     break;
                 }
+                Thread.sleep(1000);
                 System.out.println(responseFromServer);
             }
         }
