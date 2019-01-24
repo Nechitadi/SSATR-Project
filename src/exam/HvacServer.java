@@ -39,7 +39,7 @@ class SensorHandler extends Thread{
             while (active) {
                 String line = in.readLine(); //asteapta mesaje de la client
                 System.out.println("\nAm citit valoare de la senzor: \n" + line);
-                performActions(line);       
+                out.println(performActions(line));       
             }
  
         }catch(Exception e){
@@ -47,27 +47,33 @@ class SensorHandler extends Thread{
         }
     }
     
-    public void performActions(String line) throws IOException {
+    public String performActions(String line) throws IOException {
         System.out.println("\n===Afisez date==");
+        String responseFromHVAC;
         
         if (line.contains("T: ")) {
             String typedValue = line.replace("T: ", "");
             Integer temperatureFromSensor = Integer.parseInt(typedValue);
             hvac.setReadTemperature(temperatureFromSensor);
-            hvac.switchHeatingAndCooling(temperatureFromSensor);
+            responseFromHVAC = hvac.switchHeatingAndCooling(temperatureFromSensor);
+            return responseFromHVAC;
         } else if (line.contains("SetT ")) {
             String typedValue = line.replace("SetT ", "");
             Integer roomSetTemperature = Integer.parseInt(typedValue);
             hvac.setRoomSetTemperature(roomSetTemperature);
-            System.out.println(
-                "Temperatura a fost setata la: " + 
-                hvac.getRoomSetTemperature() +
-                hvac.CELSIUS_SYMBOL + "C"
-            );
-        } else if (line.contains("Turn off system")) {
+            responseFromHVAC = "Temperatura a fost setata la: ";
+            responseFromHVAC += hvac.getRoomSetTemperature() + hvac.CELSIUS_SYMBOL + "C";
+            responseFromHVAC += "\nDONE";
+
+            return responseFromHVAC;
+        } else if (line.contains("Inchide")) {
+            System.out.println("Conexiunea senzorului a fost intrerupta!");
             s.close();
             active = false;
+        } else {
+            return "Comandata inexistenta.\nDONE";
         }
+        return null;
     }
     
 }

@@ -33,11 +33,18 @@ public class TemperatureSensor extends Sensor {
  
         PrintWriter k = new PrintWriter(new OutputStreamWriter(s.getOutputStream()),true);
         BufferedReader y = new BufferedReader(new InputStreamReader(s.getInputStream()));
- 
+        
         while(true){
-            System.out.println("Introduceti valoarea temperaturii:");
+            System.out.println("\nIntroduceti valoarea temperaturii:");
             k.println(sensor.readValue());
+            
+            String responseFromServer;
+            while((responseFromServer = y.readLine()) != null) {
+                if (responseFromServer.equals("DONE")) {
+                    break;
+                }
+                System.out.println(responseFromServer);
+            }
         }
     }
-    
 }
