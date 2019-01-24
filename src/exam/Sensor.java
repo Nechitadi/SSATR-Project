@@ -18,10 +18,10 @@ public class Sensor {
         this.lastReadValue = lastReadValue;
     }
     
-    public int readValue(){
+    public String readValue(){
         Scanner sc = new Scanner(System.in);
-        int value = Integer.parseInt(sc.nextLine());
-        setLastReadValue(value);
+        String value = sc.nextLine();
+        
         return value;
     }
 }

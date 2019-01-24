@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class TemperatureSensor extends Sensor {
 
     @Override
-    public int readValue() {
+    public String readValue() {
         return super.readValue();
     }
     
@@ -29,7 +29,6 @@ public class TemperatureSensor extends Sensor {
         
         System.out.println("Senzorul se conecteaza la server...");
         Socket s = new Socket("localhost",1888);
- 
         System.out.println("Senzorul s-a conectat la server!");
  
         PrintWriter k = new PrintWriter(new OutputStreamWriter(s.getOutputStream()),true);
@@ -37,8 +36,7 @@ public class TemperatureSensor extends Sensor {
  
         while(true){
             System.out.println("Introduceti valoarea temperaturii:");
-            String input = "Temperatura: " + String.valueOf(sensor.readValue());
-            k.println(input);
+            k.println(sensor.readValue());
         }
     }
     
