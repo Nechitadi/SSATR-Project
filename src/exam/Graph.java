@@ -29,7 +29,7 @@ public class Graph extends JFrame {
     }
     
     public void paint(Graphics g) {
-        System.out.println("Painting " + dataType + " Graph");
+        System.out.println("Desenez graficul " + dataType);
         g.drawLine(0, 400, 800, 400);
         
         int pointOneX = 0;

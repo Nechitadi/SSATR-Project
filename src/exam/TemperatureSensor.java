@@ -30,12 +30,16 @@ public class TemperatureSensor extends Sensor {
         System.out.println("Senzorul de temperatura se conecteaza la server...");
         Socket s = new Socket("localhost",1888);
         System.out.println("Senzorul s-a conectat la server!");
- 
+        System.out.println("Comenzi acceptate:");
+        System.out.println("T: <valoarea> (Prentru a trimite o valoare citita catre server)");
+        System.out.println("SetT <valoarea> (Pentru a seta temperatura dorita in incapere)");
+        System.out.println("GraficT <scara> (Pentru a crea graficul temperaturilor citite pana in prezent, la scara dorita)");
+
         PrintWriter k = new PrintWriter(new OutputStreamWriter(s.getOutputStream()),true);
         BufferedReader y = new BufferedReader(new InputStreamReader(s.getInputStream()));
         
         while(true){
-            System.out.println("\nIntroduceti valoarea temperaturii:");
+            System.out.println("\n=== Introduceti valoare sau comanda ===");
             k.println(sensor.readValue());
             
             String responseFromServer;
