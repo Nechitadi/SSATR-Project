@@ -98,7 +98,6 @@ class SensorHandler extends Thread{
             System.out.println("GR TYPE: " + graphType);
             System.out.println("GR SCLAE: " + graphScale);
 
-
             if (graphType.equals("T")) {
                 Graph grafic = new Graph(hvac.temperatureHistory, graphType, graphScale);
             } else if (graphType.equals("H")) {

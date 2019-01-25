@@ -21,8 +21,10 @@ public class Graph extends JFrame {
         this.scale = scale;
         this.dataType = dataType;
         this.graphData = data;
-        setTitle("Temperatures Graph");
-        setSize(800, 600);
+        
+        if (dataType.equals("T")) setTitle("Temperatures Graph");
+        if (dataType.equals("H")) setTitle("Humidities Graph");
+        setSize(800, 450);
         setVisible(true);
     }
     
