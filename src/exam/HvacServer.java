@@ -1,9 +1,11 @@
 package exam;
 
+import java.awt.Graphics;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 public class HvacServer {
  
@@ -26,6 +28,7 @@ class SensorHandler extends Thread{
     Socket s;
     HVAC hvac = new HVAC();
     boolean active = true;
+    
  
     public SensorHandler(Socket s) {
         this.s = s;
@@ -85,7 +88,27 @@ class SensorHandler extends Thread{
             System.out.println("Conexiunea senzorului a fost intrerupta!");
             s.close();
             active = false;
-        } else {
+        } else if (line.contains("Grafic")) {
+            String typedValues = line.replace("Grafic", "");
+            
+            StringTokenizer st = new StringTokenizer(typedValues, " ");               
+            String graphType = st.nextToken();
+            Integer graphScale = Integer.parseInt(st.nextToken());
+            
+            System.out.println("GR TYPE: " + graphType);
+            System.out.println("GR SCLAE: " + graphScale);
+
+
+            if (graphType.equals("T")) {
+                Graph grafic = new Graph(hvac.temperatureHistory, graphType, graphScale);
+            } else if (graphType.equals("H")) {
+                Graph grafic = new Graph(hvac.humidityHistory, graphType, graphScale);
+            }
+
+            return "\nDONE";
+        }
+        
+        else {
             return "Comandata inexistenta.\nDONE";
         }
         return null;

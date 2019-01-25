@@ -14,8 +14,8 @@ public class HVAC {
     String CELSIUS_SYMBOL = Character.toString((char) '\u00B0');
     private int readTemperature;    
     private int readHumidity;
-    private List<Integer> temperatureHistory = new ArrayList();
-    private List<Integer> humidityHistory = new ArrayList();
+    public List<Integer> temperatureHistory = new ArrayList();
+    public List<Integer> humidityHistory = new ArrayList();
 
 
     public int getRoomSetTemperature() {
