@@ -43,7 +43,7 @@ public class HumiditySensor extends Sensor {
                 if (responseFromServer.equals("DONE")) {
                     break;
                 }
-                Thread.sleep(1000);
+                Thread.sleep(000);
                 System.out.println(responseFromServer);
             }
         }
