@@ -16,7 +16,6 @@ public class Graph extends JFrame {
     private String dataType;
     private int scale;
 
-    
     public Graph(List<Integer> data, String dataType, int scale) {
         this.scale = scale;
         this.dataType = dataType;
@@ -73,7 +72,6 @@ public class Graph extends JFrame {
                 
                 g.drawLine(ax, ay, bx, by);
             }
-            
             
             for (int i = 5; i <= 25; i+=5) {
                 ax = 0;
