@@ -13,29 +13,32 @@ import javax.swing.JFrame;
 public class Graph extends JFrame {
     
     private List<Integer> graphData = new ArrayList();
+    private String dataType;
+    private int scale;
 
     
-    public Graph() {
+    public Graph(List<Integer> data, String dataType, int scale) {
+        this.scale = scale;
+        this.dataType = dataType;
+        this.graphData = data;
         setTitle("Temperatures Graph");
-        setSize(800, 800);
+        setSize(800, 600);
         setVisible(true);
-//        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
     public void paint(Graphics g) {
+        System.out.println("Painting " + dataType + " Graph");
         g.drawLine(0, 400, 800, 400);
         
-        initializeData();
         int pointOneX = 0;
         int pointOneY = 400;
         int pointTwoX = 20;
         int pointTwoY;
         
         for(int i=0; i<graphData.size(); i++) {
-            System.out.println("Count is: " + graphData.get(i));
             int value = graphData.get(i);
            
-            pointTwoY = 400 - value * 10;
+            pointTwoY = 400 - value * scale; //for T use 10, for H use 5
             g.drawLine(pointOneX, pointOneY, pointTwoX, pointTwoY);
             g.fillOval(pointTwoX - 2, pointTwoY - 2, 4, 4);
             
@@ -45,27 +48,27 @@ public class Graph extends JFrame {
         }
     }
     
-    public void initializeData() {
-        graphData.add(22);
-        graphData.add(20);
-        graphData.add(25);
-        graphData.add(20);
-        graphData.add(23);
-        graphData.add(15);
-        graphData.add(22);
-        graphData.add(28);
-        graphData.add(22);
-        graphData.add(10);
-        graphData.add(15);
-       
-        for (int i = 0; i <= 22; i++) {
-            graphData.add(i);
-        }
-    }
+//    public void initializeData() {
+//        graphData.add(22);
+//        graphData.add(20);
+//        graphData.add(25);
+//        graphData.add(20);
+//        graphData.add(23);
+//        graphData.add(15);
+//        graphData.add(22);
+//        graphData.add(28);
+//        graphData.add(22);
+//        graphData.add(10);
+//        graphData.add(15);
+//       
+//        for (int i = 0; i <= 22; i++) {
+//            graphData.add(i);
+//        }
+//    }
     
-    public static void main(String[] args) {
-        Graph graphic = new Graph();
-    }
+//    public static void main(String[] args) {
+//        Graph graphic = new Graph();
+//    }
 
     void paint() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
