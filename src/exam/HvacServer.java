@@ -14,7 +14,7 @@ public class HvacServer {
         ServerSocket ss = new ServerSocket(1888);
         
         while(true) {
-            System.out.println("Astept valori de la senzori...");
+            System.out.println("Astept conexiune de la senzori...");
             
             Socket s = ss.accept();
             SensorHandler handler = new SensorHandler(s);
